@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "802964095150",
+    "project_id": "instasnap-c375e",
+    "storage_bucket": "instasnap-c375e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802964095150:android:a8da120fab452e7d622d3f",
+        "android_client_info": {
+          "package_name": "com.example.instasnap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "802964095150-bq3pr32a6mivu30ohi9i7q7l46edo8g0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgDSNlRxzEdzgR4rHV4JUI-ywTlY3JhVo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "802964095150-bq3pr32a6mivu30ohi9i7q7l46edo8g0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
