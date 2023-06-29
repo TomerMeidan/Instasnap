@@ -69,6 +69,8 @@ public class Register extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Intent loginIntent = new Intent(getApplicationContext(), Login.class);
+        startActivity(loginIntent);
         finish();
     }
 
@@ -87,15 +89,15 @@ public class Register extends AppCompatActivity {
 
     // Member Class Example: One of the two listener type implementations requested
     private class AuthCompleteListener implements OnCompleteListener<AuthResult> {
-        private Register registerActivity;
+        private final Register _registerActivity;
 
         public AuthCompleteListener(Register activity) {
-            this.registerActivity = activity;
+            this._registerActivity = activity;
         }
 
         @Override
         public void onComplete(@NonNull Task<AuthResult> task) {
-            registerActivity.onAuthenticationComplete(task);
+            _registerActivity.onAuthenticationComplete(task);
         }
     }
 
