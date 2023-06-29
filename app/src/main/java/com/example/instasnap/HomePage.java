@@ -13,10 +13,10 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class HomePage extends AppCompatActivity {
 
-    private FirebaseAuth auth;
-    private Button logoutButton;
-    private TextView welcomeText;
-    private FirebaseUser user;
+    private FirebaseAuth _auth;
+    private Button _logoutButton;
+    private TextView _welcomeText;
+    private FirebaseUser _user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +32,14 @@ public class HomePage extends AppCompatActivity {
 
 
     private void initialize() {
-        auth = FirebaseAuth.getInstance();
-        logoutButton = findViewById(R.id.logout_button);
-        welcomeText = findViewById(R.id.welcome_textview);
-        user = auth.getCurrentUser();
+        _auth = FirebaseAuth.getInstance();
+        _logoutButton = findViewById(R.id.logout_button);
+        _welcomeText = findViewById(R.id.welcome_textview);
+        _user = _auth.getCurrentUser();
     }
 
     private void setLogoutButtonListener() {
-        logoutButton.setOnClickListener(new View.OnClickListener() {
+        _logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
@@ -52,12 +52,12 @@ public class HomePage extends AppCompatActivity {
 
     private void checkLoginStatus() {
         // Check if user is logged in
-        if(user == null){
+        if(_user == null){
             Intent loginIntent = new Intent(getApplicationContext(), Login.class);
             startActivity(loginIntent);
             finish();
         } else {
-            welcomeText.setText("Hello " + user.getEmail());
+            _welcomeText.setText("Hello " + _user.getEmail());
         }
     }
 

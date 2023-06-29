@@ -21,12 +21,12 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
-    private EditText editTextEmail;
-    private EditText editTextPassword;
-    private Button loginButton;
-    private FirebaseAuth mAuth;
-    private ProgressBar loginProgressBar;
-    private TextView registerHereTextView;
+    private EditText _editTextEmail;
+    private EditText _editTextPassword;
+    private Button _loginButton;
+    private FirebaseAuth _mAuth;
+    private ProgressBar _loginProgressBar;
+    private TextView _registerHereTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +42,19 @@ public class Login extends AppCompatActivity {
 
     private void initialize() {
         // Initializing registration objects
-        mAuth = FirebaseAuth.getInstance();
-        editTextEmail = findViewById(R.id.login_email_text_input);
-        editTextPassword = findViewById(R.id.login_password_text_input);
-        loginButton = findViewById(R.id.login_button);
-        loginProgressBar = findViewById(R.id.login_progressBar);
-        registerHereTextView = findViewById(R.id.register_now);
+        _mAuth = FirebaseAuth.getInstance();
+        _editTextEmail = findViewById(R.id.login_email_text_input);
+        _editTextPassword = findViewById(R.id.login_password_text_input);
+        _loginButton = findViewById(R.id.login_button);
+        _loginProgressBar = findViewById(R.id.login_progressBar);
+        _registerHereTextView = findViewById(R.id.register_now);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = _mAuth.getCurrentUser();
         if(currentUser != null){
             Intent homepageIntent = new Intent(getApplicationContext(), HomePage.class);
             startActivity(homepageIntent);
@@ -64,13 +64,13 @@ public class Login extends AppCompatActivity {
 
     private void setLoginButtonListener() {
         // Setting listener for login button
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        _loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginProgressBar.setVisibility(View.VISIBLE);
+                _loginProgressBar.setVisibility(View.VISIBLE);
                 String email, password;
-                email = String.valueOf(editTextEmail.getText());
-                password = String.valueOf(editTextPassword.getText());
+                email = String.valueOf(_editTextEmail.getText());
+                password = String.valueOf(_editTextPassword.getText());
 
                 if(TextUtils.isEmpty(email)){
                     Toast.makeText(Login.this, "Enter email", Toast.LENGTH_SHORT).show();
@@ -81,21 +81,21 @@ public class Login extends AppCompatActivity {
                     return;
                 }
 
-                mAuth.signInWithEmailAndPassword(email, password)
+                _mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                loginProgressBar.setVisibility(View.GONE);
+                                _loginProgressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
-                                    Toast.makeText(Login.this, "Login Succeed.",
+                                    Toast.makeText(Login.this, "Login Succeed",
                                             Toast.LENGTH_SHORT).show();
                                     Intent homepageIntent = new Intent(getApplicationContext(), HomePage.class);
                                     startActivity(homepageIntent);
                                     finish();
                                 } else {
                                     // If sign in fails, display a message to the user.
-                                    Toast.makeText(Login.this, "Login failed.",
+                                    Toast.makeText(Login.this, "Login failed",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -106,11 +106,12 @@ public class Login extends AppCompatActivity {
 
     private void setRegisterNowButtonListener() {
         // Setting listener for register now button
-        registerHereTextView.setOnClickListener(new View.OnClickListener() {
+        _registerHereTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent registerIntent = new Intent(getApplicationContext(), Register.class);
                 startActivity(registerIntent);
+                finish();
             }
         });
     }
