@@ -52,14 +52,7 @@ public class HomePage extends AppCompatActivity {
     }
 
     private void checkLoginStatus() {
-        // Check if user is logged in
-        if(_user == null){
-            Intent loginIntent = new Intent(getApplicationContext(), Login.class);
-            startActivity(loginIntent);
-            finish();
-        } else {
-            _welcomeText.setText("Hello " + _user.getEmail());
-        }
+        _welcomeText.setText("Hello " + _user.getEmail());
     }
 
 }

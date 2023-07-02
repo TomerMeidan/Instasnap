@@ -37,6 +37,12 @@
         android:layout_height="wrap_content"
         android:text="@string/login" />
 
+    <CheckBox
+        android:id="@+id/remember_user_checkbox"
+        android:layout_width="371dp"
+        android:layout_height="wrap_content"
+        android:text="Remember Me" />
+
     <ProgressBar
         android:id="@+id/login_progressBar"
         android:visibility="gone"

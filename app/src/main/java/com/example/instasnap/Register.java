@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
@@ -83,25 +84,13 @@ public class Register extends AppCompatActivity {
         }
 
         Exception exception = task.getException();
-        String exceptionType = exception.getClass().getSimpleName();
-
         String errorMessage;
 
-        switch (exceptionType) {
-            case "FirebaseAuthWeakPasswordException":
-                errorMessage = "Weak password";
-                break;
-            case "FirebaseAuthInvalidCredentialsException":
-                errorMessage = "Invalid email address";
-                break;
-            case "FirebaseAuthUserCollisionException":
-                errorMessage = "Email already in use";
-                break;
-            default:
-                errorMessage = "Registration failed";
-                break;
+        if (exception instanceof FirebaseAuthException) {
+            errorMessage = ((FirebaseAuthException) exception).getErrorCode();
+        } else {
+            errorMessage = "Registration failed";
         }
-
         Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
     }
 
