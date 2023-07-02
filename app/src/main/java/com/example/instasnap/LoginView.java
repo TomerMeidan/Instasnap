@@ -2,22 +2,26 @@ package com.example.instasnap;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.CheckBox;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 
 public class LoginView extends AppCompatActivity {
 
@@ -27,6 +31,9 @@ public class LoginView extends AppCompatActivity {
     private FirebaseAuth _mAuth;
     private ProgressBar _loginProgressBar;
     private TextView _registerHereTextView;
+
+    private LoginViewModel loginViewModel;
+    private CheckBox _saveCredentialsCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +45,10 @@ public class LoginView extends AppCompatActivity {
         setRegisterNowButtonListener();
 
         setLoginButtonListener();
-    }
 
-    private void initialize() {
-        // Initializing registration objects
-        _mAuth = FirebaseAuth.getInstance();
-        _editTextEmail = findViewById(R.id.login_email_text_input);
-        _editTextPassword = findViewById(R.id.login_password_text_input);
-        _loginButton = findViewById(R.id.login_button);
-        _loginProgressBar = findViewById(R.id.login_progressBar);
-        _registerHereTextView = findViewById(R.id.register_now);
+        checkForSavedCredentials();
+
+
     }
 
     @Override
@@ -62,22 +63,29 @@ public class LoginView extends AppCompatActivity {
         }
     }
 
+    private void initialize() {
+        // Initializing registration objects
+        _mAuth = FirebaseAuth.getInstance();
+        _editTextEmail = findViewById(R.id.login_email_text_input);
+        _editTextPassword = findViewById(R.id.login_password_text_input);
+        _loginButton = findViewById(R.id.login_button);
+        _loginProgressBar = findViewById(R.id.login_progressBar);
+        _registerHereTextView = findViewById(R.id.register_now);
+        _saveCredentialsCheckBox = findViewById(R.id.save_credentials_checkbox);
+    }
+
     private void setLoginButtonListener() {
         // Setting listener for login button
         _loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 _loginProgressBar.setVisibility(View.VISIBLE);
-                String email, password;
-                email = String.valueOf(_editTextEmail.getText());
-                password = String.valueOf(_editTextPassword.getText());
+                String email = String.valueOf(_editTextEmail.getText());
+                String password = String.valueOf(_editTextPassword.getText());
 
-                if(TextUtils.isEmpty(email)){
-                    Toast.makeText(LoginView.this, "Enter email", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(password)){
-                    Toast.makeText(LoginView.this, "Enter password", Toast.LENGTH_SHORT).show();
+                if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+                    Toast.makeText(LoginView.this, "Email or password is empty", Toast.LENGTH_SHORT).show();
+                    _loginProgressBar.setVisibility(View.GONE);
                     return;
                 }
 
@@ -100,8 +108,16 @@ public class LoginView extends AppCompatActivity {
                                 }
                             }
                         });
+
+                // Save the Email and Password of the user with SharedPreference
+                if (_saveCredentialsCheckBox.isChecked())
+                    saveLoginCredentials();
+                 else
+                    clearSavedLoginCredentials();
+
             }
         });
+
     }
 
     private void setRegisterNowButtonListener() {
@@ -114,5 +130,38 @@ public class LoginView extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void checkForSavedCredentials() {
+
+        // Check if there are any saved login credentials and restore them if the checkbox was previously checked
+        loginViewModel = new ViewModelProvider.AndroidViewModelFactory(getApplication()).create(LoginViewModel.class);
+
+        // Restore saved credentials if the checkbox was previously checked
+        if (loginViewModel.isLoginCredentialsSaved()) {
+            String savedEmail = loginViewModel.getEmail();
+            String savedPassword = loginViewModel.getPassword();
+            _editTextEmail.setText(savedEmail);
+            _editTextPassword.setText(savedPassword);
+            _saveCredentialsCheckBox.setChecked(true);
+        }
+
+        _saveCredentialsCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!isChecked)
+                    clearSavedLoginCredentials();
+            }
+        });
+    }
+
+    private void saveLoginCredentials() {
+        String email = _editTextEmail.getText().toString().trim();
+        String password = _editTextPassword.getText().toString().trim();
+        loginViewModel.saveLoginCredentials(email, password);
+    }
+
+    private void clearSavedLoginCredentials() {
+        loginViewModel.clearLoginCredentials();
     }
 }

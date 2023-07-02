@@ -38,7 +38,7 @@
         android:text="@string/login" />
 
     <CheckBox
-        android:id="@+id/remember_user_checkbox"
+        android:id="@+id/save_credentials_checkbox"
         android:layout_width="371dp"
         android:layout_height="wrap_content"
         android:text="Remember Me" />
