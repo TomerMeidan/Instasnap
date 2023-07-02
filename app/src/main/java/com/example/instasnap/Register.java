@@ -56,18 +56,6 @@ public class Register extends AppCompatActivity {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = _mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent homepageIntent = new Intent(getApplicationContext(), HomePage.class);
-            startActivity(homepageIntent);
-            finish();
-        }
-    }
-
-    @Override
     public void onBackPressed() {
         Intent loginIntent = new Intent(getApplicationContext(), Login.class);
         startActivity(loginIntent);
@@ -86,49 +74,38 @@ public class Register extends AppCompatActivity {
         });
     }
 
-
-    // Member Class Example: One of the two listener type implementations requested
-    private class AuthCompleteListener implements OnCompleteListener<AuthResult> {
-        private final Register _registerActivity;
-
-        public AuthCompleteListener(Register activity) {
-            this._registerActivity = activity;
-        }
-
-        @Override
-        public void onComplete(@NonNull Task<AuthResult> task) {
-            _registerActivity.onAuthenticationComplete(task);
-        }
-    }
-
     public void onAuthenticationComplete(Task<AuthResult> task) {
         _registerProgressBar.setVisibility(View.GONE);
 
         if (task.isSuccessful()) {
             Toast.makeText(Register.this, "Account created", Toast.LENGTH_SHORT).show();
-        } else {
-            // Registration failed, handle the error
-            try {
-                throw task.getException();
-            } catch (FirebaseAuthWeakPasswordException e) {
-                // Handle weak password error
-                String errorMessage = "Weak password";
-                Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
-            } catch (FirebaseAuthInvalidCredentialsException e) {
-                // Handle invalid email error
-                String errorMessage = "Invalid email address";
-                Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
-            } catch (FirebaseAuthUserCollisionException e) {
-                // Handle email already in use error
-                String errorMessage = "Email already in use";
-                Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
-            } catch (Exception e) {
-                // Handle other exceptions
-                String errorMessage = "Registration failed";
-                Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
-            }
+            return;
         }
+
+        Exception exception = task.getException();
+        String exceptionType = exception.getClass().getSimpleName();
+
+        String errorMessage;
+
+        switch (exceptionType) {
+            case "FirebaseAuthWeakPasswordException":
+                errorMessage = "Weak password";
+                break;
+            case "FirebaseAuthInvalidCredentialsException":
+                errorMessage = "Invalid email address";
+                break;
+            case "FirebaseAuthUserCollisionException":
+                errorMessage = "Email already in use";
+                break;
+            default:
+                errorMessage = "Registration failed";
+                break;
+        }
+
+        Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
     }
+
+
 
     private void setRegisterButtonListener() {
         // Setting listener variable for the register button
@@ -142,13 +119,8 @@ public class Register extends AppCompatActivity {
                 email = String.valueOf(_editTextEmail.getText());
                 password = String.valueOf(_editTextPassword.getText());
 
-                if(TextUtils.isEmpty(email)){
-                    Toast.makeText(Register.this, "Enter email", Toast.LENGTH_SHORT).show();
-                    _registerProgressBar.setVisibility(View.GONE);
-                    return;
-                }
-                if(TextUtils.isEmpty(password)){
-                    Toast.makeText(Register.this, "Enter password", Toast.LENGTH_SHORT).show();
+                if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
+                    Toast.makeText(Register.this, "Email or password is empty", Toast.LENGTH_SHORT).show();
                     _registerProgressBar.setVisibility(View.GONE);
                     return;
                 }
@@ -160,5 +132,19 @@ public class Register extends AppCompatActivity {
 
             }
         });
+    }
+
+    // Member Class Example: One of the two listener type implementations requested
+    private class AuthCompleteListener implements OnCompleteListener<AuthResult> {
+        private final Register _registerActivity;
+
+        public AuthCompleteListener(Register activity) {
+            this._registerActivity = activity;
+        }
+
+        @Override
+        public void onComplete(@NonNull Task<AuthResult> task) {
+            _registerActivity.onAuthenticationComplete(task);
+        }
     }
 }
