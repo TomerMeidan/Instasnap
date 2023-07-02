@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class HomePage extends AppCompatActivity {
+public class HomePageView extends AppCompatActivity {
 
     private FirebaseAuth _auth;
     private Button _logoutButton;
@@ -44,7 +44,7 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                Intent loginIntent = new Intent(getApplicationContext(), Login.class);
+                Intent loginIntent = new Intent(getApplicationContext(), LoginView.class);
                 startActivity(loginIntent);
                 finish();
             }

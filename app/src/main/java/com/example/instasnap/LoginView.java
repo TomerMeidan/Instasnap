@@ -19,7 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Login extends AppCompatActivity {
+public class LoginView extends AppCompatActivity {
 
     private EditText _editTextEmail;
     private EditText _editTextPassword;
@@ -56,7 +56,7 @@ public class Login extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = _mAuth.getCurrentUser();
         if(currentUser != null){
-            Intent homepageIntent = new Intent(getApplicationContext(), HomePage.class);
+            Intent homepageIntent = new Intent(getApplicationContext(), HomePageView.class);
             startActivity(homepageIntent);
             finish();
         }
@@ -73,11 +73,11 @@ public class Login extends AppCompatActivity {
                 password = String.valueOf(_editTextPassword.getText());
 
                 if(TextUtils.isEmpty(email)){
-                    Toast.makeText(Login.this, "Enter email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginView.this, "Enter email", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(TextUtils.isEmpty(password)){
-                    Toast.makeText(Login.this, "Enter password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginView.this, "Enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -88,14 +88,14 @@ public class Login extends AppCompatActivity {
                                 _loginProgressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
-                                    Toast.makeText(Login.this, "Login Succeed",
+                                    Toast.makeText(LoginView.this, "Login Succeed",
                                             Toast.LENGTH_SHORT).show();
-                                    Intent homepageIntent = new Intent(getApplicationContext(), HomePage.class);
+                                    Intent homepageIntent = new Intent(getApplicationContext(), HomePageView.class);
                                     startActivity(homepageIntent);
                                     finish();
                                 } else {
                                     // If sign in fails, display a message to the user.
-                                    Toast.makeText(Login.this, "Login failed",
+                                    Toast.makeText(LoginView.this, "Login failed",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -109,7 +109,7 @@ public class Login extends AppCompatActivity {
         _registerHereTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent registerIntent = new Intent(getApplicationContext(), Register.class);
+                Intent registerIntent = new Intent(getApplicationContext(), RegisterView.class);
                 startActivity(registerIntent);
                 finish();
             }

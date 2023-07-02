@@ -18,12 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
-import com.google.firebase.auth.FirebaseUser;
 
-public class Register extends AppCompatActivity {
+public class RegisterView extends AppCompatActivity {
 
     private EditText _editTextEmail;
     private EditText _editTextPassword;
@@ -58,7 +54,7 @@ public class Register extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent loginIntent = new Intent(getApplicationContext(), Login.class);
+        Intent loginIntent = new Intent(getApplicationContext(), LoginView.class);
         startActivity(loginIntent);
         finish();
     }
@@ -68,7 +64,7 @@ public class Register extends AppCompatActivity {
         _loginHereTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent loginIntent = new Intent(getApplicationContext(), Login.class);
+                Intent loginIntent = new Intent(getApplicationContext(), LoginView.class);
                 startActivity(loginIntent);
                 finish();
             }
@@ -79,7 +75,7 @@ public class Register extends AppCompatActivity {
         _registerProgressBar.setVisibility(View.GONE);
 
         if (task.isSuccessful()) {
-            Toast.makeText(Register.this, "Account created", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterView.this, "Account created", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -109,13 +105,13 @@ public class Register extends AppCompatActivity {
                 password = String.valueOf(_editTextPassword.getText());
 
                 if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
-                    Toast.makeText(Register.this, "Email or password is empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterView.this, "Email or password is empty", Toast.LENGTH_SHORT).show();
                     _registerProgressBar.setVisibility(View.GONE);
                     return;
                 }
 
                 // Authentication with firebase, creating and storing a new user on the cloud
-                AuthCompleteListener authCompleteListener = new AuthCompleteListener(Register.this);
+                AuthCompleteListener authCompleteListener = new AuthCompleteListener(RegisterView.this);
                 _mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(authCompleteListener);
 
@@ -125,9 +121,9 @@ public class Register extends AppCompatActivity {
 
     // Member Class Example: One of the two listener type implementations requested
     private class AuthCompleteListener implements OnCompleteListener<AuthResult> {
-        private final Register _registerActivity;
+        private final RegisterView _registerActivity;
 
-        public AuthCompleteListener(Register activity) {
+        public AuthCompleteListener(RegisterView activity) {
             this._registerActivity = activity;
         }
 
