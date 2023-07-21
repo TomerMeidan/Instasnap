@@ -7,6 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -33,8 +36,9 @@ public class HomePageView extends AppCompatActivity {
 
         checkLoginStatus();
 
+        // TODO Remove set logout listener, option menu will have this action
         setLogoutButtonListener();
-
+        // TODO Remove set screen mode listener, option menu will have this action
         setScreenModeButtonListener();
 
     }
@@ -51,6 +55,7 @@ public class HomePageView extends AppCompatActivity {
         _welcomeText.setText("Hello " + _user.getEmail());
     }
 
+    // TODO Remove screen mode listener, option menu will have this action
     private void setScreenModeButtonListener() {
         _screenMode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +75,7 @@ public class HomePageView extends AppCompatActivity {
         setTheme(currentTheme);
     }
 
+    // TODO Remove logout listener, option menu will have this action
     private void setLogoutButtonListener() {
         _logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,4 +87,36 @@ public class HomePageView extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_logout:
+                FirebaseAuth.getInstance().signOut();
+                Intent loginIntent = new Intent(getApplicationContext(), LoginView.class);
+                startActivity(loginIntent);
+                finish();
+                return true;
+            case R.id.menu_screen_mode:
+                FragmentManager fm = getSupportFragmentManager();
+                ScreenModeDialog screenModeDialog = ScreenModeDialog.newInstance("Theme Choice");
+                screenModeDialog.show(fm, "screen_mode_fragment");
+                return true;
+            case R.id.menu_settings:
+                // TODO Create fragment for settings menu, settings will consist of profile image edit for now
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }
