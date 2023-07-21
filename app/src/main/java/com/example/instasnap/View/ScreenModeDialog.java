@@ -1,4 +1,4 @@
-package com.example.instasnap;
+package com.example.instasnap.View;
 
 import android.app.Dialog;
 import android.content.Context;
