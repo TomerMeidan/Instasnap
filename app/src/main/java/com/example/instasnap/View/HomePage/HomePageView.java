@@ -1,4 +1,4 @@
-package com.example.instasnap.View;
+package com.example.instasnap.View.HomePage;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.instasnap.R;
+import com.example.instasnap.View.LoginView;
+import com.example.instasnap.View.ScreenModeDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -19,7 +21,6 @@ public class HomePageView extends AppCompatActivity {
 
     private FirebaseAuth _auth;
     private Button _logoutButton;
-    private TextView _welcomeText;
     private FirebaseUser _user;
     private Button _screenMode;
 
@@ -31,8 +32,6 @@ public class HomePageView extends AppCompatActivity {
 
         initialize();
 
-        checkLoginStatus();
-
         setLogoutButtonListener();
 
         setScreenModeButtonListener();
@@ -42,14 +41,10 @@ public class HomePageView extends AppCompatActivity {
     private void initialize() {
         _auth = FirebaseAuth.getInstance();
         _logoutButton = findViewById(R.id.logout_button);
-        _welcomeText = findViewById(R.id.welcome_textview);
         _user = _auth.getCurrentUser();
         _screenMode = findViewById(R.id.screen_mode_button);
     }
 
-    private void checkLoginStatus() {
-        _welcomeText.setText("Hello " + _user.getEmail());
-    }
 
     private void setScreenModeButtonListener() {
         _screenMode.setOnClickListener(new View.OnClickListener() {
