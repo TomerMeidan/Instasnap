@@ -28,7 +28,7 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
     }
 
     // -------------------------- Inner class ------------------------------
-    protected static class StoryViewHolder extends RecyclerView.ViewHolder{
+    protected class StoryViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView _userProfileImageView;
         private TextView _userNameTextView;

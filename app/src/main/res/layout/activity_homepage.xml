@@ -57,6 +57,7 @@
         android:id="@+id/homepage_story_recycler_view"
         android:layout_width="407dp"
         android:layout_height="88dp"
+        android:scrollbars="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homepage_topbar_layout"

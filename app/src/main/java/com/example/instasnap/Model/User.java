@@ -1,11 +1,11 @@
 package com.example.instasnap.Model;
 
 public class User {
-    public final String name;
+    public final String Username;
     public final String profilePictureId;
 
-    public User(String name, String profilePictureId) {
-        this.name = name;
+    public User(String username, String profilePictureId) {
+        Username = username;
         this.profilePictureId = profilePictureId;
     }
 }
