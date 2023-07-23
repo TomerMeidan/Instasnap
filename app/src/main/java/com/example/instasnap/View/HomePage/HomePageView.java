@@ -1,4 +1,4 @@
-package com.example.instasnap.View;
+package com.example.instasnap.View.HomePage;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -21,6 +21,8 @@ import android.widget.TextView;
 import com.example.instasnap.Model.Post;
 import com.example.instasnap.Model.Story;
 import com.example.instasnap.R;
+import com.example.instasnap.View.HomePage.PostRecyclerViewAdapter;
+import com.example.instasnap.View.HomePage.StoryRecyclerViewAdapter;
 import com.example.instasnap.View.LoginView;
 import com.example.instasnap.View.ScreenModeDialog;
 import com.example.instasnap.ViewModel.HomePageViewModel;
@@ -33,9 +35,7 @@ public class HomePageView extends AppCompatActivity {
 
     private HomePageViewModel _homePageViewModel;
     private FirebaseAuth _auth;
-    private Button _logoutButton;
     private FirebaseUser _user;
-    private Button _screenMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +44,6 @@ public class HomePageView extends AppCompatActivity {
         setContentView(R.layout.activity_homepage);
 
         initialize();
-
-        setLogoutButtonListener();
-
-        setScreenModeButtonListener();
 
         initializeRecyclerViews();
     }
@@ -91,27 +87,9 @@ public class HomePageView extends AppCompatActivity {
 
     private void initialize() {
         _auth = FirebaseAuth.getInstance();
-        _logoutButton = findViewById(R.id.logout_button);
-        _welcomeText = findViewById(R.id.welcome_textview);
         _user = _auth.getCurrentUser();
-        _screenMode = findViewById(R.id.screen_mode_button);
     }
 
-    private void checkLoginStatus() {
-        _welcomeText.setText("Hello " + _user.getEmail());
-    }
-
-    // TODO Remove screen mode listener, option menu will have this action
-    private void setScreenModeButtonListener() {
-        _screenMode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fm = getSupportFragmentManager();
-                ScreenModeDialog screenModeDialog = ScreenModeDialog.newInstance("Theme Choice");
-                screenModeDialog.show(fm, "screen_mode_fragment");
-            }
-        });
-    }
 
     private void getSavedTheme() {
         // Retrieve the theme from shared preference
@@ -119,19 +97,6 @@ public class HomePageView extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("ThemePrefs", Context.MODE_PRIVATE);
         int currentTheme = sharedPreferences.getInt("current_theme", defaultTheme);
         setTheme(currentTheme);
-    }
-
-    // TODO Remove logout listener, option menu will have this action
-    private void setLogoutButtonListener() {
-        _logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent loginIntent = new Intent(getApplicationContext(), LoginView.class);
-                startActivity(loginIntent);
-                finish();
-            }
-        });
     }
 
     @Override
