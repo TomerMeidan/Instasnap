@@ -11,12 +11,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.instasnap.Model.Post;
 import com.example.instasnap.Model.Story;
 import com.example.instasnap.R;
+import com.example.instasnap.View.HomePage.PostRecyclerViewAdapter;
+import com.example.instasnap.View.HomePage.StoryRecyclerViewAdapter;
 import com.example.instasnap.View.LoginView;
 import com.example.instasnap.View.ScreenModeDialog;
 import com.example.instasnap.ViewModel.HomePageViewModel;
@@ -29,9 +35,7 @@ public class HomePageView extends AppCompatActivity {
 
     private HomePageViewModel _homePageViewModel;
     private FirebaseAuth _auth;
-    private Button _logoutButton;
     private FirebaseUser _user;
-    private Button _screenMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +44,6 @@ public class HomePageView extends AppCompatActivity {
         setContentView(R.layout.activity_homepage);
 
         initialize();
-
-        setLogoutButtonListener();
-
-        setScreenModeButtonListener();
 
         initializeRecyclerViews();
     }
@@ -87,22 +87,9 @@ public class HomePageView extends AppCompatActivity {
 
     private void initialize() {
         _auth = FirebaseAuth.getInstance();
-        _logoutButton = findViewById(R.id.logout_button);
         _user = _auth.getCurrentUser();
-        _screenMode = findViewById(R.id.screen_mode_button);
     }
 
-
-    private void setScreenModeButtonListener() {
-        _screenMode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fm = getSupportFragmentManager();
-                ScreenModeDialog screenModeDialog = ScreenModeDialog.newInstance("Theme Choice");
-                screenModeDialog.show(fm, "screen_mode_fragment");
-            }
-        });
-    }
 
     private void getSavedTheme() {
         // Retrieve the theme from shared preference
@@ -112,15 +99,35 @@ public class HomePageView extends AppCompatActivity {
         setTheme(currentTheme);
     }
 
-    private void setLogoutButtonListener() {
-        _logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.menu_logout:
                 FirebaseAuth.getInstance().signOut();
                 Intent loginIntent = new Intent(getApplicationContext(), LoginView.class);
                 startActivity(loginIntent);
                 finish();
-            }
-        });
+                return true;
+            case R.id.menu_screen_mode:
+                FragmentManager fm = getSupportFragmentManager();
+                ScreenModeDialog screenModeDialog = ScreenModeDialog.newInstance("Theme Choice");
+                screenModeDialog.show(fm, "screen_mode_fragment");
+                return true;
+            case R.id.menu_settings:
+                // TODO Create fragment for settings menu, settings will consist of profile image edit for now
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
+
 }

@@ -10,4 +10,6 @@
     <string name="hello_user">Hello User!</string>
     <string name="logo">Logo</string>
     <string name="screen_mode">Screen Mode</string>
+    <string name="settings">Settings</string>
+    <string name="profile_picture">profile_picture</string>
 </resources>
