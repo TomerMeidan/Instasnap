@@ -21,10 +21,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class HomePageView extends AppCompatActivity {
 
     private FirebaseAuth _auth;
-    private Button _logoutButton;
     private TextView _welcomeText;
     private FirebaseUser _user;
-    private Button _screenMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,36 +34,22 @@ public class HomePageView extends AppCompatActivity {
 
         checkLoginStatus();
 
-        // TODO Remove set logout listener, option menu will have this action
-        setLogoutButtonListener();
-        // TODO Remove set screen mode listener, option menu will have this action
-        setScreenModeButtonListener();
+
 
     }
 
     private void initialize() {
         _auth = FirebaseAuth.getInstance();
-        _logoutButton = findViewById(R.id.logout_button);
         _welcomeText = findViewById(R.id.welcome_textview);
         _user = _auth.getCurrentUser();
-        _screenMode = findViewById(R.id.screen_mode_button);
+
     }
 
     private void checkLoginStatus() {
         _welcomeText.setText("Hello " + _user.getEmail());
     }
 
-    // TODO Remove screen mode listener, option menu will have this action
-    private void setScreenModeButtonListener() {
-        _screenMode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fm = getSupportFragmentManager();
-                ScreenModeDialog screenModeDialog = ScreenModeDialog.newInstance("Theme Choice");
-                screenModeDialog.show(fm, "screen_mode_fragment");
-            }
-        });
-    }
+
 
     private void getSavedTheme() {
         // Retrieve the theme from shared preference
@@ -75,18 +59,7 @@ public class HomePageView extends AppCompatActivity {
         setTheme(currentTheme);
     }
 
-    // TODO Remove logout listener, option menu will have this action
-    private void setLogoutButtonListener() {
-        _logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent loginIntent = new Intent(getApplicationContext(), LoginView.class);
-                startActivity(loginIntent);
-                finish();
-            }
-        });
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
