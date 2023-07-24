@@ -11,18 +11,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.instasnap.Model.Post;
+import com.example.instasnap.Model.User;
 import com.example.instasnap.R;
+import com.example.instasnap.Utils.Parser;
 import com.example.instasnap.ViewModel.HomePageViewModel;
 
 import java.util.ArrayList;
 
 public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerViewAdapter.PostViewHolder>{
+    private ArrayList<User> _users;
 
     private ArrayList<Post> _posts;
     private HomePageViewModel _homeHomePageViewModel;
 
-    public PostRecyclerViewAdapter(ArrayList<Post> posts, HomePageViewModel homePageViewModel){
-        _posts = posts;
+    public PostRecyclerViewAdapter(ArrayList<User> users, HomePageViewModel homePageViewModel){
+        _users = users;
+        _posts = Parser.getAllPosts(_users);
         _homeHomePageViewModel = homePageViewModel;
     }
 
@@ -39,8 +43,8 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
         Post currentPost = _posts.get(position);
 
         holder._post = currentPost;
-        holder._likeTextView.setText(currentPost.likes);
-        holder._usernameTextView.setText(currentPost.user.Username);
+        holder._likeTextView.setText(String.valueOf(currentPost.likes));
+        holder._usernameTextView.setText(currentPost.user.username);
         holder._userProfileImageView.setImageResource(
                 holder._usernameTextView.getResources().getIdentifier(
                         currentPost.user.profilePictureId,"drawable", holder._usernameTextView.getContext().getOpPackageName()
@@ -55,7 +59,7 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
 
     @Override
     public int getItemCount() {
-        return 0;
+        return _posts.size();
     }
 
     public void updatePostList(ArrayList<Post> posts) {

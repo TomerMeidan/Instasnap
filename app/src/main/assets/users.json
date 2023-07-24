@@ -1,0 +1,49 @@
+{
+  "users": [
+    {
+      "username" : "tomer",
+      "password" : "tomer1",
+      "profilePictureID" : "profile_pic_example",
+      "posts" : [
+        {
+          "postPictureID" : "profile_pic_example",
+          "likes" : 15
+        },
+        {
+          "postPictureID" : "profile_pic_example",
+          "likes" : 7
+        }
+      ]
+    },
+    {
+      "username" : "roman",
+      "password" : "roman1",
+      "profilePictureID" : "profile_pic_example",
+      "posts" : [
+        {
+          "postPictureID" : "profile_pic_example",
+          "likes" : 35
+        },
+        {
+          "postPictureID" : "profile_pic_example",
+          "likes" : 71
+        }
+      ]
+    },
+    {
+      "username" : "yuval",
+      "password" : "yuval1",
+      "profilePictureID" : "profile_pic_example",
+      "posts" : [
+        {
+          "postPictureID" : "profile_pic_example",
+          "likes" : 5
+        },
+        {
+          "postPictureID" : "profile_pic_example",
+          "likes" : 70
+        }
+      ]
+    }
+  ]
+}
