@@ -35,7 +35,7 @@ public class HomePageView extends AppCompatActivity {
     private FirebaseUser _firebaseUser;
     private ArrayList<User> _users; // TODO load posts here
     private ArrayList<Post> _allPosts; // TODO load posts here
-    private ArrayList<Story> _stories; // TODO load stories here
+    private ArrayList<Story> _allStories; // TODO load stories here
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +55,10 @@ public class HomePageView extends AppCompatActivity {
 
         _homePageViewModel = new ViewModelProvider(this).get(HomePageViewModel.class);
         _homePageViewModel.setPostList(_allPosts);
-        _homePageViewModel.setStoryList(_stories);
+        _homePageViewModel.setStoryList(_allStories);
 
         // Create adapter passing in the sample user data
-        StoryRecyclerViewAdapter storyRecyclerViewAdapter = new StoryRecyclerViewAdapter();
+        StoryRecyclerViewAdapter storyRecyclerViewAdapter = new StoryRecyclerViewAdapter(_allStories, _homePageViewModel);
         PostRecyclerViewAdapter postRecyclerViewAdapter = new PostRecyclerViewAdapter(_allPosts, _homePageViewModel);
 
         RecyclerView.LayoutManager storyLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
@@ -87,6 +87,7 @@ public class HomePageView extends AppCompatActivity {
         _firebaseUser = _auth.getCurrentUser();
         _users = Parser.parseUsers(this.getApplicationContext());
         _allPosts = Parser.getAllPosts(_users);
+        _allStories = Parser.getAllStories(_users);
     }
 
     private void getSavedTheme() {
