@@ -1,4 +1,4 @@
-package com.example.instasnap.View.HomePage;
+package com.example.instasnap.View.User.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;

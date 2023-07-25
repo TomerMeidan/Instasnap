@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".View.HomePage.HomePageView"
+            android:name=".View.User.UserView"
             android:exported="true">
         </activity>
     </application>
