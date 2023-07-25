@@ -6,27 +6,37 @@
       "profilePictureID" : "profile_pic_example",
       "posts" : [
         {
-          "postPictureID" : "profile_pic_example",
+          "postPictureID" : "canecorso1",
           "likes" : 15
         },
         {
-          "postPictureID" : "profile_pic_example",
+          "postPictureID" : "canecorso2",
           "likes" : 7
+        }
+      ],
+      "stories" : [
+        {
+          "storyPictureID" : "TBD"
         }
       ]
     },
     {
       "username" : "roman",
       "password" : "roman1",
-      "profilePictureID" : "profile_pic_example",
+      "profilePictureID" : "default_man",
       "posts" : [
         {
-          "postPictureID" : "profile_pic_example",
+          "postPictureID" : "vizsla1",
           "likes" : 35
         },
         {
-          "postPictureID" : "profile_pic_example",
+          "postPictureID" : "vizsla2",
           "likes" : 71
+        }
+      ],
+      "stories" : [
+        {
+          "storyPictureID" : "TBD"
         }
       ]
     },
@@ -36,12 +46,69 @@
       "profilePictureID" : "profile_pic_example",
       "posts" : [
         {
-          "postPictureID" : "profile_pic_example",
+          "postPictureID" : "malinois1",
           "likes" : 5
         },
         {
-          "postPictureID" : "profile_pic_example",
+          "postPictureID" : "malinois2",
           "likes" : 70
+        }
+      ],
+      "stories" : [
+        {
+          "storyPictureID" : "TBD"
+        }
+      ]
+    },
+    {
+      "username" : "yoni",
+      "password" : "yoni1",
+      "profilePictureID" : "profile_pic_example",
+      "posts" : [
+
+      ],
+      "stories" : [
+        {
+          "storyPictureID" : "TBD"
+        }
+      ]
+    },
+    {
+      "username" : "ahmed",
+      "password" : "ahmed1",
+      "profilePictureID" : "profile_pic_example",
+      "posts" : [
+
+      ],
+      "stories" : [
+        {
+          "storyPictureID" : "TBD"
+        }
+      ]
+    },
+    {
+      "username" : "salim",
+      "password" : "salim1",
+      "profilePictureID" : "profile_pic_example",
+      "posts" : [
+
+      ],
+      "stories" : [
+        {
+          "storyPictureID" : "TBD"
+        }
+      ]
+    },
+    {
+      "username" : "abdul",
+      "password" : "abdul1",
+      "profilePictureID" : "profile_pic_example",
+      "posts" : [
+
+      ],
+      "stories" : [
+        {
+          "storyPictureID" : "TBD"
         }
       ]
     }
