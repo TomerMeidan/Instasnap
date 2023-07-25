@@ -19,14 +19,11 @@ import com.example.instasnap.ViewModel.HomePageViewModel;
 import java.util.ArrayList;
 
 public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerViewAdapter.PostViewHolder>{
-    private ArrayList<User> _users;
-
     private ArrayList<Post> _posts;
     private HomePageViewModel _homeHomePageViewModel;
 
-    public PostRecyclerViewAdapter(ArrayList<User> users, HomePageViewModel homePageViewModel){
-        _users = users;
-        _posts = Parser.getAllPosts(_users);
+    public PostRecyclerViewAdapter(ArrayList<Post> allPosts, HomePageViewModel homePageViewModel){
+        _posts = allPosts;
         _homeHomePageViewModel = homePageViewModel;
     }
 

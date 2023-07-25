@@ -59,10 +59,10 @@ public class HomePageView extends AppCompatActivity {
 
         // Create adapter passing in the sample user data
         StoryRecyclerViewAdapter storyRecyclerViewAdapter = new StoryRecyclerViewAdapter();
-        PostRecyclerViewAdapter postRecyclerViewAdapter = new PostRecyclerViewAdapter(_users, _homePageViewModel);
+        PostRecyclerViewAdapter postRecyclerViewAdapter = new PostRecyclerViewAdapter(_allPosts, _homePageViewModel);
 
         RecyclerView.LayoutManager storyLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
-        RecyclerView.LayoutManager postLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
+        RecyclerView.LayoutManager postLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
 
         // Set layout manager to position the items
         storyRecyclerView.setLayoutManager(storyLayoutManager);
