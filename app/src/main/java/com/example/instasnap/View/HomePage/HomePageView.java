@@ -14,15 +14,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.instasnap.Model.Post;
 import com.example.instasnap.Model.Story;
+import com.example.instasnap.Model.User;
 import com.example.instasnap.R;
-import com.example.instasnap.View.HomePage.PostRecyclerViewAdapter;
-import com.example.instasnap.View.HomePage.StoryRecyclerViewAdapter;
+import com.example.instasnap.Utils.Parser;
 import com.example.instasnap.View.LoginView;
 import com.example.instasnap.View.ScreenModeDialog;
 import com.example.instasnap.ViewModel.HomePageViewModel;
@@ -35,7 +32,10 @@ public class HomePageView extends AppCompatActivity {
 
     private HomePageViewModel _homePageViewModel;
     private FirebaseAuth _auth;
-    private FirebaseUser _user;
+    private FirebaseUser _firebaseUser;
+    private ArrayList<User> _users; // TODO load posts here
+    private ArrayList<Post> _allPosts; // TODO load posts here
+    private ArrayList<Story> _stories; // TODO load stories here
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,22 +50,19 @@ public class HomePageView extends AppCompatActivity {
 
     private void initializeRecyclerViews(){
 
-        ArrayList<Post> posts = new ArrayList<>(); // TODO load posts here
-        ArrayList<Story> stories = new ArrayList<>(); // TODO load stories here
-
         RecyclerView storyRecyclerView = findViewById(R.id.homepage_story_recycler_view);
         RecyclerView postRecyclerView = findViewById(R.id.homepage_post_recycler_view);
 
         _homePageViewModel = new ViewModelProvider(this).get(HomePageViewModel.class);
-        _homePageViewModel.setPostList(posts);
-        _homePageViewModel.setStoryList(stories);
+        _homePageViewModel.setPostList(_allPosts);
+        _homePageViewModel.setStoryList(_stories);
 
         // Create adapter passing in the sample user data
         StoryRecyclerViewAdapter storyRecyclerViewAdapter = new StoryRecyclerViewAdapter();
-        PostRecyclerViewAdapter postRecyclerViewAdapter = new PostRecyclerViewAdapter(posts, _homePageViewModel);
+        PostRecyclerViewAdapter postRecyclerViewAdapter = new PostRecyclerViewAdapter(_allPosts, _homePageViewModel);
 
         RecyclerView.LayoutManager storyLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
-        RecyclerView.LayoutManager postLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
+        RecyclerView.LayoutManager postLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
 
         // Set layout manager to position the items
         storyRecyclerView.setLayoutManager(storyLayoutManager);
@@ -87,9 +84,10 @@ public class HomePageView extends AppCompatActivity {
 
     private void initialize() {
         _auth = FirebaseAuth.getInstance();
-        _user = _auth.getCurrentUser();
+        _firebaseUser = _auth.getCurrentUser();
+        _users = Parser.parseUsers(this.getApplicationContext());
+        _allPosts = Parser.getAllPosts(_users);
     }
-
 
     private void getSavedTheme() {
         // Retrieve the theme from shared preference
