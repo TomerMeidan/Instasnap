@@ -3,12 +3,14 @@ package com.example.instasnap.View.User.Fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.instasnap.R;
+import com.example.instasnap.View.User.UserView;
 
 public class SettingsFragmentView extends Fragment {
 
@@ -28,4 +30,5 @@ public class SettingsFragmentView extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.settings_page_fragment, container, false);
     }
+
 }

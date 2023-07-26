@@ -12,7 +12,6 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/user_container_view"
-        android:name="com.example.instasnap.View.User.Fragments.MainPageFragmentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"

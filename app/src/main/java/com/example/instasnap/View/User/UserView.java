@@ -1,13 +1,7 @@
 package com.example.instasnap.View.User;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,24 +10,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
-import com.example.instasnap.Model.Post;
-import com.example.instasnap.Model.Story;
-import com.example.instasnap.Model.User;
 import com.example.instasnap.R;
-import com.example.instasnap.Utils.Parser;
-import com.example.instasnap.View.User.Adapters.PostRecyclerViewAdapter;
-import com.example.instasnap.View.User.Adapters.StoryRecyclerViewAdapter;
 import com.example.instasnap.View.User.Fragments.HomePageFragmentView;
-import com.example.instasnap.View.User.Fragments.MainPageFragmentView;
 import com.example.instasnap.View.User.Fragments.ScreenModeDialogView;
 import com.example.instasnap.View.LoginView;
-import com.example.instasnap.ViewModel.HomePageViewModel;
+import com.example.instasnap.View.User.Fragments.SettingsFragmentView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import java.util.ArrayList;
 
 public class UserView extends AppCompatActivity {
 
@@ -41,7 +24,7 @@ public class UserView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         getSavedTheme();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_view);
+        setContentView(R.layout.user_view);
 
         initiateMainPageView();
 
@@ -49,10 +32,9 @@ public class UserView extends AppCompatActivity {
 
     private void initiateMainPageView() {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.user_container_view, MainPageFragmentView.class, null)
+                .add(R.id.user_container_view, HomePageFragmentView.class, null)
                 .commit();
         getSupportFragmentManager().executePendingTransactions();
-
     }
 
 
@@ -80,7 +62,10 @@ public class UserView extends AppCompatActivity {
                 screenModeView.show(fm, "screen_mode_fragment");
                 return true;
             case R.id.menu_settings:
-                // TODO Create fragment for settings menu, settings will consist of profile image edit for now
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.user_container_view, new SettingsFragmentView(), "SFV")
+                        .addToBackStack(null)
+                        .commit();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -95,6 +80,5 @@ public class UserView extends AppCompatActivity {
         int currentTheme = sharedPreferences.getInt("current_theme", defaultTheme);
         setTheme(currentTheme);
     }
-
 
 }
