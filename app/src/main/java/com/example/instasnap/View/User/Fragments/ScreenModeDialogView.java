@@ -1,4 +1,4 @@
-package com.example.instasnap.View;
+package com.example.instasnap.View.User.Fragments;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -8,13 +8,13 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-public class ScreenModeDialog extends DialogFragment {
+public class ScreenModeDialogView extends DialogFragment {
     private static final String[] THEME_NAMES = {"Light Theme", "Dark Theme"};
     private static final int[] THEME_VALUES = {com.google.android.material.R.style.Base_V24_Theme_Material3_Light,
             com.google.android.material.R.style.Base_V24_Theme_Material3_Dark};
 
-    public static ScreenModeDialog newInstance(String title) {
-        ScreenModeDialog frag = new ScreenModeDialog();
+    public static ScreenModeDialogView newInstance(String title) {
+        ScreenModeDialogView frag = new ScreenModeDialogView();
         Bundle args = new Bundle();
         args.putString("title", title);
         frag.setArguments(args);

@@ -1,4 +1,4 @@
-package com.example.instasnap.View.HomePage;
+package com.example.instasnap.View.User.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.instasnap.Model.Post;
-import com.example.instasnap.Model.User;
 import com.example.instasnap.R;
-import com.example.instasnap.Utils.Parser;
 import com.example.instasnap.ViewModel.HomePageViewModel;
 
 import java.util.ArrayList;

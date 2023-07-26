@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".View.HomePage.HomePageView">
+    tools:context=".View.User.UserView">
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -35,25 +35,11 @@
         android:id="@+id/homepage_post_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/homepage_bottombar_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homepage_story_recycler_view"
         tools:itemCount="1"
         tools:listitem="@layout/post_recycler_view_item" />
-
-    <LinearLayout
-        android:id="@+id/homepage_bottombar_layout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:orientation="horizontal">
-    </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

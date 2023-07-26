@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.CheckBox;
 
-import com.example.instasnap.View.HomePage.HomePageView;
+import com.example.instasnap.View.User.UserView;
 import com.example.instasnap.ViewModel.LoginViewModel;
 import com.example.instasnap.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,7 +41,7 @@ public class LoginView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.login_view);
 
         initialize();
 
@@ -60,7 +60,7 @@ public class LoginView extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = _mAuth.getCurrentUser();
         if(currentUser != null){
-            Intent homepageIntent = new Intent(getApplicationContext(), HomePageView.class);
+            Intent homepageIntent = new Intent(getApplicationContext(), UserView.class);
             startActivity(homepageIntent);
             finish();
         }
@@ -101,7 +101,7 @@ public class LoginView extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Toast.makeText(LoginView.this, "Login Succeed",
                                             Toast.LENGTH_SHORT).show();
-                                    Intent homepageIntent = new Intent(getApplicationContext(), HomePageView.class);
+                                    Intent homepageIntent = new Intent(getApplicationContext(), UserView.class);
                                     startActivity(homepageIntent);
                                     finish();
                                 } else {
