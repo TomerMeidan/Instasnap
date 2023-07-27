@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.instasnap.R;
 import com.example.instasnap.View.User.Fragments.HomePageFragmentView;
@@ -82,6 +83,13 @@ public class UserView extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void onHomepageButtonClick(View view){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.user_container_view, new HomePageFragmentView())
+                .addToBackStack(null)
+                .commit();
     }
 
 
