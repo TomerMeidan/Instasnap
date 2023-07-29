@@ -59,6 +59,7 @@ public class Parser {
             JSONArray postsJson = (JSONArray) singleUser.get("posts");
             JSONArray storiesJson = (JSONArray) singleUser.get("stories");
 
+            String email = (String) singleUser.get("email");
             String username = (String) singleUser.get("username");
             String password = (String) singleUser.get("password");
             String profilePictureID = (String) singleUser.get("profilePictureID");
@@ -66,7 +67,7 @@ public class Parser {
             ArrayList<Post> userPosts = getUserPosts(postsJson, username, profilePictureID);
             ArrayList<Story> userStories = getUserStories(storiesJson, username, profilePictureID);
 
-            User userInfo = new User(username, password, profilePictureID, userPosts, userStories);
+            User userInfo = new User(email, password, profilePictureID, userPosts, userStories);
             allUsers.add(userInfo);
         }
 
