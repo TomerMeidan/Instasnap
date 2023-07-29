@@ -5,6 +5,8 @@ import java.util.Collection;
 
 public class User {
     public String username;
+    public String email;
+
     public String profilePictureId;
     public String password;
 
@@ -18,16 +20,22 @@ public class User {
 
     public ArrayList<Story> stories;
 
-    public User(String username, String password, String profilePictureId, ArrayList<Post> posts, ArrayList<Story> stories) {
-        this.username = username;
+    public User(String email, String password, String profilePictureId, ArrayList<Post> posts, ArrayList<Story> stories) {
+        this.email = email;
+        this.username = makeUserName(email);
         this.profilePictureId = profilePictureId;
         this.password = password;
         this.posts = posts;
         this.stories = stories;
     }
 
-    public User(String username, String profilePictureId) {
-        this.username = username;
+    String makeUserName(String email){
+        String[] split = email.split("@");
+        return split[0];
+    }
+
+    public User(String email, String profilePictureId) {
+        this.username = makeUserName(email);
         this.profilePictureId = profilePictureId;
     }
 }

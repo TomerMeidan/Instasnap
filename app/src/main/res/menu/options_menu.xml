@@ -2,13 +2,17 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:id="@+id/upload_post"
+        android:icon="@drawable/instasnap_logo"
+        android:title="@string/upload_post" />
+
     <item android:id="@+id/menu_settings"
         android:icon="@drawable/instasnap_logo"
         android:title="@string/settings" />
 
     <item android:id="@+id/menu_screen_mode"
         android:icon="@drawable/instasnap_logo"
-        android:title="Screen Mode" />
+        android:title="@string/screen_mode" />
 
     <item android:id="@+id/menu_logout"
         android:icon="@drawable/instasnap_logo"

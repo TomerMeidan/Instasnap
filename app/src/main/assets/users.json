@@ -2,6 +2,7 @@
   "users": [
     {
       "username" : "tomer",
+      "email" : "tomer@gmail.com",
       "password" : "tomer1",
       "profilePictureID" : "profile_pic_example",
       "posts" : [
@@ -22,6 +23,7 @@
     },
     {
       "username" : "roman",
+      "email" : "roman@gmail.com",
       "password" : "roman1",
       "profilePictureID" : "default_man",
       "posts" : [
@@ -42,6 +44,7 @@
     },
     {
       "username" : "yuval",
+      "email" : "yuval@gmail.com",
       "password" : "yuval1",
       "profilePictureID" : "profile_pic_example",
       "posts" : [
@@ -62,6 +65,7 @@
     },
     {
       "username" : "yoni",
+      "email" : "yoni@gmail.com",
       "password" : "yoni1",
       "profilePictureID" : "profile_pic_example",
       "posts" : [
@@ -75,6 +79,7 @@
     },
     {
       "username" : "ahmed",
+      "email" : "ahmed@gmail.com",
       "password" : "ahmed1",
       "profilePictureID" : "profile_pic_example",
       "posts" : [
@@ -88,6 +93,7 @@
     },
     {
       "username" : "salim",
+      "email" : "salim@gmail.com",
       "password" : "salim1",
       "profilePictureID" : "profile_pic_example",
       "posts" : [
@@ -101,6 +107,7 @@
     },
     {
       "username" : "abdul",
+      "email" : "abdul@gmail.com",
       "password" : "abdul1",
       "profilePictureID" : "profile_pic_example",
       "posts" : [
