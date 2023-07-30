@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,6 +20,8 @@ import android.widget.Toast;
 import android.widget.CheckBox;
 
 import com.example.instasnap.Utils.FirebaseHandler;
+import com.example.instasnap.Utils.LikeBroadcastReceiver;
+import com.example.instasnap.Utils.LikeService;
 import com.example.instasnap.View.User.UserView;
 import com.example.instasnap.ViewModel.LoginViewModel;
 import com.example.instasnap.R;
@@ -70,15 +75,30 @@ public class LoginView extends AppCompatActivity {
     private void initialize() {
         // Initializing registration objects
         _mAuth = FirebaseAuth.getInstance();
-        FirebaseHandler firebaseHandler = new FirebaseHandler(getApplicationContext());
-       // firebaseHandler.loadDataToFirebase();
-       // firebaseHandler.readDataFromFirebase();
         _editTextEmail = findViewById(R.id.login_email_text_input);
         _editTextPassword = findViewById(R.id.login_password_text_input);
         _loginButton = findViewById(R.id.login_button);
         _loginProgressBar = findViewById(R.id.login_progressBar);
         _registerHereTextView = findViewById(R.id.register_now);
         _saveCredentialsCheckBox = findViewById(R.id.save_credentials_checkbox);
+
+        initializeReceiver();
+        initializeWorkManagerService();
+    }
+
+    private void initializeReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.example.instasnap.LIKE_NOTIFICATION");
+
+        LikeBroadcastReceiver likeBroadcastReceiver = new LikeBroadcastReceiver();
+        registerReceiver(likeBroadcastReceiver, intentFilter);
+    }
+
+    private void initializeWorkManagerService() {
+        if(!isMyServiceRunning(LikeService.class)) {
+            Intent intent = new Intent(this, LikeService.class);
+            startService(intent);
+        }
     }
 
     private void setLoginButtonListener() {
@@ -170,5 +190,15 @@ public class LoginView extends AppCompatActivity {
 
     private void clearSavedLoginCredentials() {
         loginViewModel.clearLoginCredentials();
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
