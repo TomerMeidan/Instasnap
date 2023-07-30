@@ -13,12 +13,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.instasnap.Model.Post;
+import com.example.instasnap.Model.Story;
+import com.example.instasnap.Model.User;
 import com.example.instasnap.R;
+import com.example.instasnap.Utils.FirebaseHandler;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
+
+import java.util.ArrayList;
 
 public class RegisterView extends AppCompatActivity {
 
@@ -28,6 +34,9 @@ public class RegisterView extends AppCompatActivity {
     private FirebaseAuth _mAuth;
     private ProgressBar _registerProgressBar;
     private TextView _loginHereTextView;
+
+    private String email;
+    private String password;
 
 
     @Override
@@ -99,8 +108,6 @@ public class RegisterView extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String email, password;
-
                 _registerProgressBar.setVisibility(View.VISIBLE);
                 email = String.valueOf(_editTextEmail.getText());
                 password = String.valueOf(_editTextPassword.getText());
@@ -115,7 +122,6 @@ public class RegisterView extends AppCompatActivity {
                 AuthCompleteListener authCompleteListener = new AuthCompleteListener(RegisterView.this);
                 _mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(authCompleteListener);
-
             }
         });
     }
@@ -131,6 +137,12 @@ public class RegisterView extends AppCompatActivity {
         @Override
         public void onComplete(@NonNull Task<AuthResult> task) {
             _registerActivity.onAuthenticationComplete(task);
+            // TODO Add to Firestore Cloud the new user
+
+            User user = new User(email, password, "profile_pic_example", new ArrayList<Post>(),  new ArrayList<Story>(), _mAuth.getCurrentUser().getUid());
+            user.addStory(new Story(user.getUsername(), user.profilePictureURL, user.getUniqueID(), null));
+            FirebaseHandler firebaseHandler = new FirebaseHandler();
+            firebaseHandler.setUserInFirestoreDataBase(user);
         }
     }
 }

@@ -39,7 +39,7 @@ public class UserView extends AppCompatActivity {
 
     private void initiateMainPageView() {
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.user_container_view, HomePageFragmentView.class, null)
+                .replace(R.id.user_container_view, HomePageFragmentView.class, null)
                 .commit();
         getSupportFragmentManager().executePendingTransactions();
     }
@@ -74,12 +74,6 @@ public class UserView extends AppCompatActivity {
                         .addToBackStack(null)
                         .commit();
                 return true;
-            case R.id.upload_post:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.user_container_view, new UploadPageFragmentView(), "UPFV")
-                        .addToBackStack(null)
-                        .commit();
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -88,6 +82,13 @@ public class UserView extends AppCompatActivity {
     public void onHomepageButtonClick(View view){
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.user_container_view, new HomePageFragmentView())
+                .addToBackStack(null)
+                .commit();
+    }
+
+    public void onPostButtonClick(View view){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.user_container_view, new UploadPageFragmentView(), "UPFV")
                 .addToBackStack(null)
                 .commit();
     }

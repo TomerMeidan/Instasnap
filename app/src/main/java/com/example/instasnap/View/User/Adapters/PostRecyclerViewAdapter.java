@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.instasnap.Model.Post;
 import com.example.instasnap.R;
 import com.example.instasnap.ViewModel.HomePageViewModel;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,17 +42,13 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
 
         holder._post = currentPost;
         holder._likeTextView.setText(String.valueOf(currentPost.likes));
-        holder._usernameTextView.setText(currentPost.user.username);
+        holder._usernameTextView.setText(currentPost.username);
         holder._userProfileImageView.setImageResource(
                 holder._usernameTextView.getResources().getIdentifier(
-                        currentPost.user.profilePictureId,"drawable", holder._usernameTextView.getContext().getOpPackageName()
+                        currentPost.profilePictureURL,"drawable", holder._usernameTextView.getContext().getOpPackageName()
                 )
         );
-        holder._postImageView.setImageResource(
-                holder._usernameTextView.getResources().getIdentifier(
-                        currentPost.postPictureId,"drawable", holder._usernameTextView.getContext().getOpPackageName()
-                )
-        );
+        Picasso.get().load(currentPost.getPostPictureURL()).into(holder._postImageView);
     }
 
     @Override

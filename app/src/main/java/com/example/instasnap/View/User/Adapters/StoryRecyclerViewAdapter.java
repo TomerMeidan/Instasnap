@@ -38,10 +38,10 @@ public class StoryRecyclerViewAdapter extends RecyclerView.Adapter<StoryRecycler
         Story currentStory = _storys.get(position);
 
         holder._story = currentStory;
-        holder._userNameTextView.setText(currentStory.user.username);
+        holder._userNameTextView.setText(currentStory.getUsername());
         holder._userProfileImageView.setImageResource(
                 holder._userNameTextView.getResources().getIdentifier(
-                        currentStory.user.profilePictureId,"drawable", holder._userNameTextView.getContext().getOpPackageName()
+                        currentStory.getProfilePictureID(),"drawable", holder._userNameTextView.getContext().getOpPackageName()
                 )
         );
     }
