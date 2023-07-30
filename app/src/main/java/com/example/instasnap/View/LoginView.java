@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.CheckBox;
 
+import com.example.instasnap.Utils.FirebaseHandler;
 import com.example.instasnap.View.User.UserView;
 import com.example.instasnap.ViewModel.LoginViewModel;
 import com.example.instasnap.R;
@@ -69,6 +70,9 @@ public class LoginView extends AppCompatActivity {
     private void initialize() {
         // Initializing registration objects
         _mAuth = FirebaseAuth.getInstance();
+        FirebaseHandler firebaseHandler = new FirebaseHandler(getApplicationContext());
+       // firebaseHandler.loadDataToFirebase();
+       // firebaseHandler.readDataFromFirebase();
         _editTextEmail = findViewById(R.id.login_email_text_input);
         _editTextPassword = findViewById(R.id.login_password_text_input);
         _loginButton = findViewById(R.id.login_button);

@@ -4,14 +4,15 @@
       "username" : "tomer",
       "email" : "tomer@gmail.com",
       "password" : "tomer1",
-      "profilePictureID" : "profile_pic_example",
+      "profilePictureURL" : "profile_pic_example",
+      "uniqueID" : "Qle8wEQGPnP2E2hP9USyfQK8gUy2",
       "posts" : [
         {
-          "postPictureID" : "canecorso1",
+          "postPictureURL" : "51alMbIqcD54XTjFR1uk",
           "likes" : 15
         },
         {
-          "postPictureID" : "canecorso2",
+          "postPictureID" : "amWmUNVBBv",
           "likes" : 7
         }
       ],
@@ -26,6 +27,7 @@
       "email" : "roman@gmail.com",
       "password" : "roman1",
       "profilePictureID" : "default_man",
+      "uniqueID" : "lC3l1ReuqsUE3zCA1d4fxvt823L2",
       "posts" : [
         {
           "postPictureID" : "vizsla1",
@@ -43,73 +45,11 @@
       ]
     },
     {
-      "username" : "yuval",
-      "email" : "yuval@gmail.com",
-      "password" : "yuval1",
-      "profilePictureID" : "profile_pic_example",
-      "posts" : [
-        {
-          "postPictureID" : "malinois1",
-          "likes" : 5
-        },
-        {
-          "postPictureID" : "malinois2",
-          "likes" : 70
-        }
-      ],
-      "stories" : [
-        {
-          "storyPictureID" : "TBD"
-        }
-      ]
-    },
-    {
-      "username" : "yoni",
-      "email" : "yoni@gmail.com",
-      "password" : "yoni1",
-      "profilePictureID" : "profile_pic_example",
-      "posts" : [
-
-      ],
-      "stories" : [
-        {
-          "storyPictureID" : "TBD"
-        }
-      ]
-    },
-    {
       "username" : "ahmed",
       "email" : "ahmed@gmail.com",
       "password" : "ahmed1",
       "profilePictureID" : "profile_pic_example",
-      "posts" : [
-
-      ],
-      "stories" : [
-        {
-          "storyPictureID" : "TBD"
-        }
-      ]
-    },
-    {
-      "username" : "salim",
-      "email" : "salim@gmail.com",
-      "password" : "salim1",
-      "profilePictureID" : "profile_pic_example",
-      "posts" : [
-
-      ],
-      "stories" : [
-        {
-          "storyPictureID" : "TBD"
-        }
-      ]
-    },
-    {
-      "username" : "abdul",
-      "email" : "abdul@gmail.com",
-      "password" : "abdul1",
-      "profilePictureID" : "profile_pic_example",
+      "uniqueID" : "heN3D8jiHRPG7fjPFFNaz00S5bo2",
       "posts" : [
 
       ],

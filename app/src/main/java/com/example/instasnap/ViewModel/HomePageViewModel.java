@@ -8,12 +8,15 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.instasnap.Model.Post;
 import com.example.instasnap.Model.Story;
+import com.example.instasnap.Model.User;
 
 import java.util.ArrayList;
 
 public class HomePageViewModel extends AndroidViewModel {
 
     //region Variables
+
+    private ArrayList<User> _users;
 
     //----------------- Story variables -------------------
     private MutableLiveData<ArrayList<Story>> _mutableStoryList = new MutableLiveData<>();
@@ -48,6 +51,12 @@ public class HomePageViewModel extends AndroidViewModel {
     }
 
 
+    public void addMutablePost(Post post){
+        _postList.add(post);
+
+        // Set post mutable variables
+        _mutablePostList.setValue(_postList);
+    }
     public MutableLiveData<ArrayList<Story>> getMutableUserStoryList(){ return _mutableStoryList; }
 
     public MutableLiveData<Integer> getMutableUserStoryIndex(){ return _mutableStoryIndex; }
@@ -63,5 +72,17 @@ public class HomePageViewModel extends AndroidViewModel {
             _postList.get(position).likes++;
             _mutablePostList.setValue(_postList);
         }
+    }
+
+    public void setUserList(ArrayList<User> users) {
+        _users = users;
+    }
+
+    public User getUserFromList(String uniqueID){
+        for(User user : _users){
+            if (user.getUniqueID().equals(uniqueID))
+                return user;
+        }
+        return null;
     }
 }

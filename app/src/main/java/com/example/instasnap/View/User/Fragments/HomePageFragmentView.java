@@ -19,6 +19,7 @@ import com.example.instasnap.Model.Post;
 import com.example.instasnap.Model.Story;
 import com.example.instasnap.Model.User;
 import com.example.instasnap.R;
+import com.example.instasnap.Utils.FirebaseHandler;
 import com.example.instasnap.Utils.Parser;
 import com.example.instasnap.View.User.Adapters.PostRecyclerViewAdapter;
 import com.example.instasnap.View.User.Adapters.StoryRecyclerViewAdapter;
@@ -27,12 +28,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 public class HomePageFragmentView extends Fragment {
 
     private HomePageViewModel _homePageViewModel;
     private FirebaseAuth _auth;
-    private FirebaseUser _firebaseUser;
     private ArrayList<User> _users; // TODO load posts here
     private ArrayList<Post> _allPosts; // TODO load posts here
     private ArrayList<Story> _allStories; // TODO load stories here
@@ -68,9 +69,11 @@ public class HomePageFragmentView extends Fragment {
         RecyclerView storyRecyclerView = view.findViewById(R.id.homepage_story_recycler_view);
         RecyclerView postRecyclerView = view.findViewById(R.id.homepage_post_recycler_view);
 
-        _homePageViewModel = new ViewModelProvider(this).get(HomePageViewModel.class);
+        _homePageViewModel = new ViewModelProvider(requireActivity()).get(HomePageViewModel.class);
+
         _homePageViewModel.setPostList(_allPosts);
         _homePageViewModel.setStoryList(_allStories);
+        _homePageViewModel.setUserList(_users);
 
         // Create adapter passing in the sample user data
         StoryRecyclerViewAdapter storyRecyclerViewAdapter = new StoryRecyclerViewAdapter(_allStories, _homePageViewModel);
@@ -99,11 +102,10 @@ public class HomePageFragmentView extends Fragment {
 
     private void initialize() {
         _auth = FirebaseAuth.getInstance();
-        _firebaseUser = _auth.getCurrentUser();
-        _users = Parser.parseUsers(this.getContext());
+        FirebaseHandler firebaseHandler = new FirebaseHandler(getContext());
+        _users = firebaseHandler.readDataFromFirebase();
         _allPosts = Parser.getAllPosts(_users);
         _allStories = Parser.getAllStories(_users);
-
     }
 
 }
