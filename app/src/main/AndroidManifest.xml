@@ -17,6 +17,10 @@
         android:theme="@style/Theme.Material3.Light"
         tools:targetApi="31">
 
+
+        <service android:name=".Utils.LikeService"/>
+
+
         <activity
             android:name=".View.RegisterView"
             android:theme="@style/Theme.Material3.Light.NoActionBar"
