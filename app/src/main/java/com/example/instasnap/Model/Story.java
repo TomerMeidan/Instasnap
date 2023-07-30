@@ -16,13 +16,8 @@ public class Story {
     public String getUsername() {
         return username;
     }
-
     public String getProfilePictureID() {
         return profilePictureID;
-    }
-
-    public String getUserUniqueID() {
-        return userUniqueID;
     }
 
 }

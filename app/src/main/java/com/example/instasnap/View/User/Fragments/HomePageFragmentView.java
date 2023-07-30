@@ -33,13 +33,11 @@ import java.util.concurrent.CountDownLatch;
 public class HomePageFragmentView extends Fragment {
 
     private HomePageViewModel _homePageViewModel;
-    private FirebaseAuth _auth;
     private ArrayList<User> _users; // TODO load posts here
     private ArrayList<Post> _allPosts; // TODO load posts here
     private ArrayList<Story> _allStories; // TODO load stories here
 
     public HomePageFragmentView() {
-        // Required empty public constructor
     }
 
     @Override
@@ -52,15 +50,12 @@ public class HomePageFragmentView extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
             initializeRecyclerViews(view);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.home_page_fragment, container, false);
     }
 
@@ -101,8 +96,7 @@ public class HomePageFragmentView extends Fragment {
     }
 
     private void initialize() {
-        _auth = FirebaseAuth.getInstance();
-        FirebaseHandler firebaseHandler = new FirebaseHandler(getContext());
+        FirebaseHandler firebaseHandler = new FirebaseHandler();
         _users = firebaseHandler.readDataFromFirebase();
         _allPosts = Parser.getAllPosts(_users);
         _allStories = Parser.getAllStories(_users);

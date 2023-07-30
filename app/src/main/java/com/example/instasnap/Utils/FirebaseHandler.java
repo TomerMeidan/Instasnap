@@ -41,15 +41,6 @@ public class FirebaseHandler {
     private JSONArray usersJson = new JSONArray();
 
 
-
-    public FirebaseHandler(Context context){
-        _allUsers = Parser.parseUsers(context);
-        _allPosts = Parser.getAllPosts(_allUsers);
-        _allStories = Parser.getAllStories(_allUsers);
-        _db = FirebaseFirestore.getInstance();
-
-    }
-
     public FirebaseHandler(){
         _db = FirebaseFirestore.getInstance();
     }
@@ -121,30 +112,6 @@ public class FirebaseHandler {
                 }
             }
         });
-    }
-
-
-
-    public void loadDataToFirebase(){
-
-        for (User user : _allUsers) {
-
-            // Add a new document with a generated ID
-            _db.collection("users")
-                    .add(user)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error adding document", e);
-                        }
-                    });
-        }
     }
 
     public ArrayList<User> readDataFromFirebase() {

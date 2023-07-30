@@ -39,7 +39,7 @@ public class UserView extends AppCompatActivity {
 
     private void initiateMainPageView() {
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.user_container_view, HomePageFragmentView.class, null)
+                .replace(R.id.user_container_view, HomePageFragmentView.class, null)
                 .commit();
         getSupportFragmentManager().executePendingTransactions();
     }

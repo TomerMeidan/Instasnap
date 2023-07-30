@@ -34,6 +34,10 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginView extends AppCompatActivity {
 
+    // TODO Fix the layout showcase of the bottom bar
+    // TODO Have the broadcast receiver send an email each 30 seconds and like a random post of the user
+    // TODO Increase the height of the story bar so the names will be visible
+
     private EditText _editTextEmail;
     private EditText _editTextPassword;
     private Button _loginButton;
