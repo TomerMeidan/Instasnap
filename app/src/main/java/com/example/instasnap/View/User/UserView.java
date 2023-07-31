@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,6 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.instasnap.R;
+import com.example.instasnap.Utils.LikeBroadcastReceiver;
+import com.example.instasnap.Utils.LikeService;
 import com.example.instasnap.View.User.Fragments.HomePageFragmentView;
 import com.example.instasnap.View.User.Fragments.ScreenModeDialogView;
 import com.example.instasnap.View.LoginView;
@@ -33,8 +37,36 @@ public class UserView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_view);
 
+        initializeReceiver();
+        initializeWorkManagerService();
+
         initiateMainPageView();
 
+    }
+
+    private void initializeReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.example.instasnap.LIKE_NOTIFICATION");
+
+        LikeBroadcastReceiver likeBroadcastReceiver = LikeBroadcastReceiver.getInstance();
+        registerReceiver(likeBroadcastReceiver, intentFilter);
+    }
+
+    private void initializeWorkManagerService() {
+        if(!isMyServiceRunning(LikeService.class)) {
+            Intent intent = new Intent(this, LikeService.class);
+            startService(intent);
+        }
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void initiateMainPageView() {
@@ -71,7 +103,7 @@ public class UserView extends AppCompatActivity {
             case R.id.menu_settings:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.user_container_view, new SettingsFragmentView(), "SFV")
-                        .addToBackStack(null)
+                        .addToBackStack("SettingsView")
                         .commit();
                 return true;
             default:
@@ -82,14 +114,14 @@ public class UserView extends AppCompatActivity {
     public void onHomepageButtonClick(View view){
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.user_container_view, new HomePageFragmentView())
-                .addToBackStack(null)
+                .addToBackStack("HomePage")
                 .commit();
     }
 
     public void onPostButtonClick(View view){
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.user_container_view, new UploadPageFragmentView(), "UPFV")
-                .addToBackStack(null)
+                .addToBackStack("Upload")
                 .commit();
     }
 

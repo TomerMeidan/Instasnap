@@ -25,7 +25,7 @@ public class LikeWorker extends Worker {
         while(true){
 
             try {
-                Thread.sleep(10000);
+                Thread.sleep(15000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

@@ -26,6 +26,16 @@
             android:text="@string/upload_post" />
 
 
+        <TextView
+            android:id="@+id/permission_denied_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="#FF0000"
+            android:text="@string/PermErr"
+            android:visibility="gone" />
+
         <ProgressBar
             android:id="@+id/upload_progressBar"
             android:layout_width="110dp"
@@ -34,6 +44,5 @@
             android:visibility="gone" />
 
     </LinearLayout>
-
 
 </FrameLayout>

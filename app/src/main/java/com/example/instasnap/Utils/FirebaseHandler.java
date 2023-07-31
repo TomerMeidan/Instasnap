@@ -31,20 +31,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class FirebaseHandler {
-
-    private ArrayList<Post> _allPosts;
-    private ArrayList<Story> _allStories;
-    private ArrayList<User> _allUsers;
-
     private  FirebaseFirestore _db;
-    private boolean _waitingForData = true;
-    private JSONArray usersJson = new JSONArray();
-
-
     public FirebaseHandler(){
         _db = FirebaseFirestore.getInstance();
     }
-
 
     public void setUserInFirestoreDataBase(User user){
 
@@ -119,9 +109,8 @@ public class FirebaseHandler {
 
         Task<QuerySnapshot> task = _db.collection("users").get();
         ExecutorService executor = Executors.newSingleThreadExecutor();
-
         try {
-            // Use CompletableFuture to wait for the result on a background thread
+            // CompletableFuture to wait for the result on a background thread
             CompletableFuture<QuerySnapshot> completableFuture = new CompletableFuture<>();
             task.addOnCompleteListener(executor, new OnCompleteListener<QuerySnapshot>() {
                 @Override
@@ -132,12 +121,10 @@ public class FirebaseHandler {
 
             QuerySnapshot querySnapshot = completableFuture.get();
             if (querySnapshot != null && !querySnapshot.isEmpty()) {
-                for (DocumentSnapshot document : querySnapshot.getDocuments()) {
-                    Log.d(TAG, document.getId() + " => " + document.getData());
-                    Map<String, Object> dataMap = document.getData();
-                    JSONObject jsonObject = new JSONObject(dataMap);
-                    usersJson.add(jsonObject);
-                }
+
+                for (DocumentSnapshot document : querySnapshot.getDocuments())
+                    addUserDocumentToJson(usersJson, document);
+
             } else {
                 Log.w(TAG, "No documents found.");
             }
@@ -146,6 +133,13 @@ public class FirebaseHandler {
         }
 
         return Parser.parseUsers(usersJson);
+    }
+
+    private void addUserDocumentToJson(JSONArray usersJson, DocumentSnapshot document) {
+        Map<String, Object> dataMap = document.getData();
+        JSONObject jsonObject = new JSONObject(dataMap);
+        usersJson.add(jsonObject);
+        Log.d(TAG, document.getId() + " => " + document.getData());
     }
 
 }
