@@ -34,6 +34,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginView extends AppCompatActivity {
 
+
     private EditText _editTextEmail;
     private EditText _editTextPassword;
     private Button _loginButton;
