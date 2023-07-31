@@ -12,9 +12,9 @@
     <string name="screen_mode">Screen Mode</string>
     <string name="settings">Settings</string>
     <string name="profile_picture">profile_picture</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="upload">Upload</string>
     <string name="upload_post">Upload Post</string>
     <string name="post_message">This is the uploading post page, click the Upload Post button and choose a photo from your library to upload.</string>
+    <string name="PermErr">Upload permission was not granted, post uploading not available.</string>
 </resources>

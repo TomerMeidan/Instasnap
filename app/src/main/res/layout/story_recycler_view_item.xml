@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/user_recycler_view_row"
     android:layout_width="100dp"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="8dp">
 
   <ImageView
       android:id="@+id/user_imageView"
-      android:layout_width="match_parent"
+      android:layout_width="90dp"
       android:layout_height="50dp"
       android:layout_gravity="center_horizontal"
       tools:src="@tools:sample/avatars" />

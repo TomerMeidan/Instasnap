@@ -6,8 +6,19 @@ import android.content.Intent;
 import android.widget.Toast;
 
 public class LikeBroadcastReceiver extends BroadcastReceiver {
+
+    private static LikeBroadcastReceiver receiver;
+
+    public static LikeBroadcastReceiver getInstance(){
+        if(receiver == null) {
+            receiver = new LikeBroadcastReceiver();
+            return receiver;
+        }
+        return receiver;
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context,"New like received",Toast.LENGTH_SHORT).show();
+        Toast.makeText(context,"Your post received a new like",Toast.LENGTH_SHORT).show();
     }
 }

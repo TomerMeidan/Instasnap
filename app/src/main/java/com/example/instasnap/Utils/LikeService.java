@@ -12,7 +12,6 @@ import androidx.work.WorkManager;
 
 public class LikeService extends Service {
 
-
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {

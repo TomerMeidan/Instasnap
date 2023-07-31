@@ -33,19 +33,15 @@ import java.util.concurrent.CountDownLatch;
 public class HomePageFragmentView extends Fragment {
 
     private HomePageViewModel _homePageViewModel;
-    private ArrayList<User> _users; // TODO load posts here
-    private ArrayList<Post> _allPosts; // TODO load posts here
-    private ArrayList<Story> _allStories; // TODO load stories here
-
-    public HomePageFragmentView() {
-    }
+    private ArrayList<User> _users;
+    private ArrayList<Post> _allPosts;
+    private ArrayList<Story> _allStories;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initialize();
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -92,7 +88,7 @@ public class HomePageFragmentView extends Fragment {
             }
         });
 
-        // TODO In later stages HERE is a good place to observe to "viewing stories" events.
+        // In later stages HERE is a good place to observe to "viewing stories" events.
     }
 
     private void initialize() {

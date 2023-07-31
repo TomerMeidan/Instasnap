@@ -34,10 +34,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginView extends AppCompatActivity {
 
-    // TODO Fix the layout showcase of the bottom bar
-    // TODO Have the broadcast receiver send an email each 30 seconds and like a random post of the user
-    // TODO Increase the height of the story bar so the names will be visible
-
     private EditText _editTextEmail;
     private EditText _editTextPassword;
     private Button _loginButton;
@@ -73,6 +69,7 @@ public class LoginView extends AppCompatActivity {
             Intent homepageIntent = new Intent(getApplicationContext(), UserView.class);
             startActivity(homepageIntent);
             finish();
+            getSupportFragmentManager().popBackStack();
         }
     }
 
@@ -86,23 +83,6 @@ public class LoginView extends AppCompatActivity {
         _registerHereTextView = findViewById(R.id.register_now);
         _saveCredentialsCheckBox = findViewById(R.id.save_credentials_checkbox);
 
-        initializeReceiver();
-        initializeWorkManagerService();
-    }
-
-    private void initializeReceiver() {
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.example.instasnap.LIKE_NOTIFICATION");
-
-        LikeBroadcastReceiver likeBroadcastReceiver = new LikeBroadcastReceiver();
-        registerReceiver(likeBroadcastReceiver, intentFilter);
-    }
-
-    private void initializeWorkManagerService() {
-        if(!isMyServiceRunning(LikeService.class)) {
-            Intent intent = new Intent(this, LikeService.class);
-            startService(intent);
-        }
     }
 
     private void setLoginButtonListener() {
@@ -132,6 +112,7 @@ public class LoginView extends AppCompatActivity {
                                     Intent homepageIntent = new Intent(getApplicationContext(), UserView.class);
                                     startActivity(homepageIntent);
                                     finish();
+                                    getSupportFragmentManager().popBackStack();
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Toast.makeText(LoginView.this, "Login failed",
@@ -196,13 +177,4 @@ public class LoginView extends AppCompatActivity {
         loginViewModel.clearLoginCredentials();
     }
 
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

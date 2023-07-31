@@ -20,13 +20,13 @@ public class HomePageViewModel extends AndroidViewModel {
 
     //----------------- Story variables -------------------
     private MutableLiveData<ArrayList<Story>> _mutableStoryList = new MutableLiveData<>();
-    private ArrayList<Story> _storyList; //TODO add here creation of users
+    private ArrayList<Story> _storyList; // add here creation of users
     private MutableLiveData<Integer> _mutableStoryIndex = new MutableLiveData<>();
     private Integer _storyIndex = new Integer(-1); // Default value when no user displayed
 
     //----------------- Post variables -------------------
     private MutableLiveData<ArrayList<Post>> _mutablePostList = new MutableLiveData<>();
-    private ArrayList<Post> _postList; //TODO add here creation of users
+    private ArrayList<Post> _postList; // add here creation of users
     private MutableLiveData<Integer> _mutablePostIndex = new MutableLiveData<>();
     private Integer _postIndex = new Integer(-1); // Default value when no user displayed
 

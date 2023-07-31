@@ -67,6 +67,7 @@ public class RegisterView extends AppCompatActivity {
         Intent loginIntent = new Intent(getApplicationContext(), LoginView.class);
         startActivity(loginIntent);
         finish();
+        getSupportFragmentManager().popBackStack();
     }
 
     private void setLoginNowButtonListener() {
@@ -137,8 +138,7 @@ public class RegisterView extends AppCompatActivity {
         @Override
         public void onComplete(@NonNull Task<AuthResult> task) {
             _registerActivity.onAuthenticationComplete(task);
-            // TODO Add to Firestore Cloud the new user
-
+            // Add the new registered user to the Firestore Cloud
             User user = new User(email, password, "profile_pic_example", new ArrayList<Post>(),  new ArrayList<Story>(), _mAuth.getCurrentUser().getUid());
             user.addStory(new Story(user.getUsername(), user.profilePictureURL, user.getUniqueID(), null));
             FirebaseHandler firebaseHandler = new FirebaseHandler();

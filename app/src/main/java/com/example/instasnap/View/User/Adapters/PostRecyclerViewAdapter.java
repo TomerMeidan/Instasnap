@@ -48,7 +48,7 @@ public class PostRecyclerViewAdapter extends RecyclerView.Adapter<PostRecyclerVi
                         currentPost.profilePictureURL,"drawable", holder._usernameTextView.getContext().getOpPackageName()
                 )
         );
-        Picasso.get().load(currentPost.getPostPictureURL()).into(holder._postImageView);
+        Picasso.get().load(currentPost.getPostPictureURL()).into(holder._postImageView); // Retrieving the image from the internet
     }
 
     @Override
